@@ -9,12 +9,8 @@ import postRouter from './route/posts.js'
 // initialize
 dotenv.config();
 
-// const {getTodos, createTodo, updateTodo, deleteTodo} = require('./controllers/todoController.js') ;
-
 // App Config
 const app = express();
-
-app.use('/posts', postRouter) // it states localhost://8000/posts 
 
 // bodyParser
 app.use(bodyParser.json({limit:'30mb', extended: true}))
@@ -22,6 +18,9 @@ app.use(bodyParser.urlencoded({limit:'30mb', extended: true}))
 
 // cors
 app.use(Cors());
+
+// router
+app.use('/posts', postRouter) // it states localhost://5000/posts 
 
 // Middlewares
 // convert to json
@@ -38,16 +37,3 @@ mongoose
     app.listen(PORT, () => console.log(`Running on port : ${PORT}`));
   })
   .catch((err) => console.log(err.message));
-
-// // API Endpoints
-// // Get Todos
-// app.get('/todos', getTodos)
-
-// // Create a new todo
-// app.post('/todos', createTodo)
-
-// // Update todo
-// app.put('/todos/:id', updateTodo)
-
-// // Delete a todo
-// app.delete('/todos/:id', deleteTodo)

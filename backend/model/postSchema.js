@@ -13,10 +13,10 @@ const postSchema = mongoose.Schema({
   },
   selectedFile: {
     type: String,
-    required: true,
+    required: false,
   },
   likeCount: {
-    tyoe: String,
+    type: String,
     default: 0,
   },
   createdAt: {
