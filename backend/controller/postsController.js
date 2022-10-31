@@ -40,4 +40,18 @@ export const updatePost = async (req, res) => {
 
 // Delete post
 export const deletePost = async (req, res) => {
+  const { id } = req.params;
+  try {
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      return res.status(400).send(`${id} is not valid id`);
+    }
+    const todoId = { _id: id };
+    const deleteToDo = await PostSchema.findByIdAndDelete(todoId);
+    if (!deleteToDo) {
+      return res.status(400).send(`${deleteToDo} is not valid`);
+    }
+    res.status(200).send(deleteToDo);
+  } catch (err) {
+    res.status(500).send(err.message);
+  }
 };

@@ -65,9 +65,5 @@ export const Button = styled.button`
   display: block;
   width: 100%;
   color: white;
-  background : red;
-  :first-of-type {
-    background : green;
-    margin-top: 36px;
-  }
+  background : green;
 `;

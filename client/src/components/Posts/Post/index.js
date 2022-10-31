@@ -17,6 +17,7 @@ import {
 import { Card } from './styles';
 import { useDispatch } from 'react-redux';
 import { ActionType } from '../../../redux/post/action_types';
+import { deleteCurrentPost } from '../../../actions/actionPost';
 
 export const Post = ({ post }) => {
   const dispatch = useDispatch();
@@ -26,12 +27,21 @@ export const Post = ({ post }) => {
       payload: id,
     });
   };
+
+  const deletePost = (id) => {
+    deleteCurrentPost(id);
+    dispatch({
+      type: ActionType.DELETE_POST,
+      payload: id,
+    });
+  };
   return (
     <>
       {post ? (
         <Card>
           <Content>
             <Image
+            id={post?._id}
               src={
                 post?.selectedFile
                   ? post?.selectedFile
@@ -78,7 +88,7 @@ export const Post = ({ post }) => {
               </SVG>
               {post?.likeCount}
             </div>
-            <div>
+            <div onClick={()=>deletePost(post?._id)}>
               <SVG xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 58.67'>
                 <title>Asset 25</title>
                 <g id='Layer_2' data-name='Layer 2'>

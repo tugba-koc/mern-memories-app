@@ -22,7 +22,7 @@ export const Form = () => {
   let currentId = useSelector(selectCurrentId);
 
   useEffect(() => {
-    if(currentId){
+    if (currentId) {
       let post = posts.find((el) => el._id === currentId);
       if (post) setPostData(post);
     }
@@ -62,7 +62,8 @@ export const Form = () => {
     });
   };
 
-  const clearData = () => {
+  const clearData = (e) => {
+    e.preventDefault();
     setPostData({
       creator: '',
       title: '',
@@ -111,15 +112,6 @@ export const Form = () => {
           value={postData.tags}
           onChange={(e) => changeHandler(e)}
         />
-
-        {/* <Label htmlFor='likeCount'>Like count</Label>
-        <Input
-          type='number'
-          name='likeCount'
-          value={postData.likeCount}
-          onChange={(e) => changeHandler(e)}
-        /> */}
-
         <Label htmlFor='selectedFile'>Select file</Label>
         <FileBase64
           type='file'
@@ -129,10 +121,8 @@ export const Form = () => {
           }}
         />
         <Button type='submit'>Add</Button>
-        <Button onClick={() => clearData()} type='submit'>
-          Clear
-        </Button>
       </FormContainer>
+      <Button onClick={(e) => clearData(e)}>Clear</Button>
     </Container>
   );
 };

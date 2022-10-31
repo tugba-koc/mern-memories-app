@@ -18,6 +18,11 @@ const postReducer = (state = postInitialState, action) => {
         ...state,
         posts: state.posts.map(el => el._id === action.payload._id ? action.payload : el ),
       };
+    case ActionType.DELETE_POST:
+      return {
+        ...state,
+        posts: state.posts.filter(el => el._id != action.payload),
+      };
     case ActionType.SET_CURRENT_POST_ID:
       return {
         ...state,

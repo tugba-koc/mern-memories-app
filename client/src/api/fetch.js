@@ -11,3 +11,7 @@ export const addPost = (data) => {
 export const updatePost = (id, data) => {
   return axios.patch(`/${id}`, data);
 };
+
+export const deletePost = (id) => {
+  return axios.delete(`/${id}`);
+};

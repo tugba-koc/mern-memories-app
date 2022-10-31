@@ -6,7 +6,7 @@ import { useSelector } from 'react-redux';
 import { Container } from './styles';
 
 export const Posts = () => {
-  const posts = useSelector(selectPosts);
+  let posts = useSelector(selectPosts);
 
   console.log(posts);
 
