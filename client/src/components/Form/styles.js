@@ -57,9 +57,17 @@ export const Button = styled.button`
   border: 1px solid black;
   cursor: pointer;
   padding: 12px 18px;
-  margin-top: 16px;
-  font-size: 16px;
+  margin-top: 12px;
+  font-size: 18px;
   color: black;
-  font-weight: 600;
+  font-weight: 700;
   border-radius: 10px;
+  display: block;
+  width: 100%;
+  color: white;
+  background : red;
+  :first-of-type {
+    background : green;
+    margin-top: 36px;
+  }
 `;

@@ -1,7 +1,7 @@
 import React from 'react';
 import moment from 'moment';
 
-import { Image, Text, Tag, Content, Time, Title, SVG, Icons } from './styles';
+import { Image, Text, Tag, Content, Time, Title, SVG, Icons, Overlay } from './styles';
 
 import { Card } from './styles';
 
@@ -19,6 +19,7 @@ export const Post = ({ post }) => {
                   : 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Placeholder_view_vector.svg/681px-Placeholder_view_vector.svg.png'
               }
             />
+            <Overlay></Overlay>
             <Text>{post?.creator}</Text>
             <Time>{moment(post?.createdAt).fromNow()}</Time>
           </Content>

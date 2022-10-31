@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
 import { Container, Text, Input, Label, FormContainer, Button } from './styles';
-import { createPost } from '../../actions/actionPost';
 import FileBase64 from 'react-file-base64';
 import { useDispatch } from 'react-redux';
+import { createPost } from '../../actions/actionPost';
 
 const initialState = {
   creator: '',
   title: '',
   message: '',
   tags: [],
-  likeCount: '',
+  // likeCount: '',
   selectedFile: '',
 };
 
@@ -27,10 +27,34 @@ export const Form = () => {
     setPostData({ ...postData, [e.target.name]: val });
   };
 
+  const sendPost = (e, postData, dispatch) => {
+    e.preventDefault();
+    createPost(postData, dispatch);
+    setPostData({
+      creator: '',
+      title: '',
+      message: '',
+      tags: [],
+      // likeCount: '',
+      selectedFile: '',
+    });
+  };
+
+  const clearData = () => {
+    setPostData({
+      creator: '',
+      title: '',
+      message: '',
+      tags: [],
+      // likeCount: '',
+      selectedFile: '',
+    });
+  };
+
   return (
     <Container>
       <Text>Create a memory</Text>
-      <FormContainer onSubmit={(e) => createPost(e, postData, dispatch)}>
+      <FormContainer onSubmit={(e) => sendPost(e, postData)}>
         <Label htmlFor='creator'>Creator name</Label>
         <Input
           type='text'
@@ -63,13 +87,13 @@ export const Form = () => {
           onChange={(e) => changeHandler(e)}
         />
 
-        <Label htmlFor='likeCount'>Like count</Label>
+        {/* <Label htmlFor='likeCount'>Like count</Label>
         <Input
           type='number'
           name='likeCount'
           value={postData.likeCount}
           onChange={(e) => changeHandler(e)}
-        />
+        /> */}
 
         <Label htmlFor='selectedFile'>Select file</Label>
         <FileBase64
@@ -81,6 +105,9 @@ export const Form = () => {
           }}
         />
         <Button type='submit'>Add</Button>
+        <Button onClick={() => clearData()} type='submit'>
+          Clear
+        </Button>
       </FormContainer>
     </Container>
   );

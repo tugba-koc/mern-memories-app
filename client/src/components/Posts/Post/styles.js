@@ -8,7 +8,7 @@ export const Card = styled.div`
   border: 1px solid grey;
   border-radius: 20px;
   height: 340px;
-  background : white;
+  background: white;
 `;
 
 export const Image = styled.img`
@@ -16,6 +16,13 @@ export const Image = styled.img`
   width: 100%;
   object-fit: cover;
   border-radius: 20px 20px 0 0;
+`;
+
+export const Overlay = styled(Image)`
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.3);
 `;
 
 export const Text = styled.p`
@@ -50,8 +57,8 @@ export const Title = styled.p`
 `;
 
 export const SVG = styled.svg`
-  width: 16px;
-  height: 16px;
+  width: 20px;
+  height: 20px;
   cursor: pointer;
 `;
 

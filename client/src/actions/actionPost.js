@@ -14,8 +14,7 @@ export const getPosts = () => async (dispatch) => {
   }
 };
 
-export const createPost = async (e, data, dispatch) => {
-  e.preventDefault();
+export const createPost = async (data, dispatch) => {
   try {
     await addPost(data);
     getPosts();
