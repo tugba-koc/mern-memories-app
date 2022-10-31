@@ -13,7 +13,7 @@ export const Posts = () => {
   return (
     <Container>
       {posts?.length > 0 &&
-        posts?.map((post) => <Post post={post} key={post._id} />)}
+        posts?.map((post, index) => <Post post={post} key={index} />)}
       <Post />
     </Container>
   );

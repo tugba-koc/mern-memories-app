@@ -1,21 +1,32 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Container, Text, Input, Label, FormContainer, Button } from './styles';
 import FileBase64 from 'react-file-base64';
-import { useDispatch } from 'react-redux';
-import { createPost } from '../../actions/actionPost';
+import { useDispatch, useSelector } from 'react-redux';
+import { createPost, updateCurrentPost } from '../../actions/actionPost';
+import { selectCurrentId, selectPosts } from '../../redux/post/postReducer';
+import { ActionType } from '../../redux/post/action_types';
 
 const initialState = {
   creator: '',
   title: '',
   message: '',
   tags: [],
-  // likeCount: '',
   selectedFile: '',
 };
 
 export const Form = () => {
   const [postData, setPostData] = useState(initialState);
   const dispatch = useDispatch();
+
+  let posts = useSelector(selectPosts);
+  let currentId = useSelector(selectCurrentId);
+
+  useEffect(() => {
+    if(currentId){
+      let post = posts.find((el) => el._id === currentId);
+      if (post) setPostData(post);
+    }
+  }, [currentId]);
 
   const changeHandler = (e) => {
     let val = '';
@@ -27,15 +38,26 @@ export const Form = () => {
     setPostData({ ...postData, [e.target.name]: val });
   };
 
-  const sendPost = (e, postData, dispatch) => {
+  const sendPost = (e, postData) => {
     e.preventDefault();
-    createPost(postData, dispatch);
+    if (currentId) {
+      updateCurrentPost(currentId, postData);
+      dispatch({
+        type: ActionType.UPDATE_POST,
+        payload: postData,
+      });
+    } else {
+      createPost(postData);
+      dispatch({
+        type: ActionType.CREATE,
+        payload: postData,
+      });
+    }
     setPostData({
       creator: '',
       title: '',
       message: '',
       tags: [],
-      // likeCount: '',
       selectedFile: '',
     });
   };
@@ -46,8 +68,11 @@ export const Form = () => {
       title: '',
       message: '',
       tags: [],
-      // likeCount: '',
       selectedFile: '',
+    });
+    dispatch({
+      type: ActionType.SET_CURRENT_POST_ID,
+      payload: null,
     });
   };
 
@@ -100,7 +125,6 @@ export const Form = () => {
           type='file'
           multiple={false}
           onDone={(el) => {
-            console.log(el.base64);
             setPostData({ ...postData, selectedFile: el.base64 });
           }}
         />

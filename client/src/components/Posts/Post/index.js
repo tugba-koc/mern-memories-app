@@ -1,17 +1,36 @@
 import React from 'react';
 import moment from 'moment';
 
-import { Image, Text, Tag, Content, Time, Title, SVG, Icons, Overlay } from './styles';
+import {
+  Image,
+  Text,
+  Tag,
+  Content,
+  Time,
+  Title,
+  SVG,
+  Icons,
+  Overlay,
+  Edit,
+} from './styles';
 
 import { Card } from './styles';
+import { useDispatch } from 'react-redux';
+import { ActionType } from '../../../redux/post/action_types';
 
 export const Post = ({ post }) => {
+  const dispatch = useDispatch();
+  const showStatusPost = (id) => {
+    dispatch({
+      type: ActionType.SET_CURRENT_POST_ID,
+      payload: id,
+    });
+  };
   return (
     <>
       {post ? (
         <Card>
           <Content>
-            {}
             <Image
               src={
                 post?.selectedFile
@@ -20,14 +39,29 @@ export const Post = ({ post }) => {
               }
             />
             <Overlay></Overlay>
+            <Edit onClick={() => showStatusPost(post?._id)}>
+              <svg
+                className='feather feather-edit-2'
+                fill='none'
+                height='24'
+                stroke='currentColor'
+                strokeLinecap='round'
+                strokeLinejoin='round'
+                strokeWidth='2'
+                viewBox='0 0 24 24'
+                width='24'
+              >
+                <path d='M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z' />
+              </svg>
+            </Edit>
             <Text>{post?.creator}</Text>
             <Time>{moment(post?.createdAt).fromNow()}</Time>
           </Content>
           {post?.tags
-            ? post.tags.map((tag) => (
-                <>
-                  <Tag>#{tag}</Tag>
-                </>
+            ? post.tags.map((tag,index) => (
+                <Tag key={index}>
+                  <div>#{tag}</div>
+                </Tag>
               ))
             : null}
           <Title>{post?.title}</Title>

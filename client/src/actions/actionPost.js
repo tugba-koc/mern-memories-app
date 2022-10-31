@@ -1,4 +1,4 @@
-import { addPost, fetchPost } from '../api/fetch';
+import { addPost, fetchPost, updatePost } from '../api/fetch';
 import { ActionType } from '../redux/post/action_types';
 
 export const getPosts = () => async (dispatch) => {
@@ -14,14 +14,18 @@ export const getPosts = () => async (dispatch) => {
   }
 };
 
-export const createPost = async (data, dispatch) => {
+export const createPost = async (data) => {
   try {
     await addPost(data);
     getPosts();
-    dispatch({
-      type: ActionType.CREATE,
-      payload: data,
-    });
+  } catch (err) {
+    console.log(err.message);
+  }
+};
+
+export const updateCurrentPost = (id, data) => {
+  try {
+    updatePost(id, data);
   } catch (err) {
     console.log(err.message);
   }
