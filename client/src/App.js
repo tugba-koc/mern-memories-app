@@ -7,14 +7,14 @@ import { useEffect } from 'react';
 
 // style
 import { MainContainer, ImageContainer, Header, Container } from './style';
-import { fetchPost } from './api/fetch';
 import { ActionType } from './redux/post/action_types';
+import { getPosts } from './actions/actionPost';
 
 function App() {
   const dispatch = useDispatch();
 
   const getData = async () => {
-    const { data } = await fetchPost();
+    const data = await getPosts();
     if (data) {
       dispatch({
         type: ActionType.SET_POST,

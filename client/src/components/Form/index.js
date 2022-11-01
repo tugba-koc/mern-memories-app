@@ -38,19 +38,20 @@ export const Form = () => {
     setPostData({ ...postData, [e.target.name]: val });
   };
 
-  const sendPost = (e, postData) => {
+  const sendPost = async (e, postData) => {
     e.preventDefault();
     if (currentId) {
-      updateCurrentPost(currentId, postData);
+      let data = await updateCurrentPost(currentId, postData);
+      console.log(data);
       dispatch({
-        type: ActionType.UPDATE_POST,
-        payload: postData,
+        type: ActionType.SET_POST,
+        payload: data,
       });
     } else {
-      createPost(postData);
+      let data = await createPost(postData);
       dispatch({
-        type: ActionType.CREATE,
-        payload: postData,
+        type: ActionType.SET_POST,
+        payload: data,
       });
     }
     setPostData({

@@ -8,7 +8,7 @@ import { Container } from './styles';
 export const Posts = () => {
   let posts = useSelector(selectPosts);
 
-  console.log(posts);
+  // console.log(posts, 'POSTS');
 
   return (
     <Container>

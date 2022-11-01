@@ -7,31 +7,22 @@ export const postInitialState = {
 };
 
 const postReducer = (state = postInitialState, action) => {
+  console.log(action.payload);
   switch (action.type) {
     case ActionType.SET_POST:
       return {
         ...state,
         posts: action.payload,
       };
-    case ActionType.UPDATE_POST:
-      return {
-        ...state,
-        posts: state.posts.map(el => el._id === action.payload._id ? action.payload : el ),
-      };
     case ActionType.DELETE_POST:
       return {
         ...state,
-        posts: state.posts.filter(el => el._id != action.payload),
+        posts: state.posts.filter((el) => el._id !== action.payload),
       };
     case ActionType.SET_CURRENT_POST_ID:
       return {
         ...state,
         currentId: action.payload,
-      };
-    case ActionType.CREATE:
-      return {
-        ...state,
-        posts: [...state.posts, action.payload],
       };
     case ActionType.SET_ERROR:
       return {
