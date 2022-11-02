@@ -19,6 +19,11 @@ const postSchema = mongoose.Schema({
     type: Date,
     default: new Date(),
   },
+  likeCount: {
+    type: Number,
+    default: 0,
+    required: true,
+  }
 });
 
 const PostSchema = mongoose.model('PostSchema', postSchema);

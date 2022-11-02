@@ -1,4 +1,10 @@
-import { addPost, fetchPost, updatePost, deletePost } from '../api/fetch';
+import {
+  addPost,
+  fetchPost,
+  updatePost,
+  deletePost,
+  likePost,
+} from '../api/fetch';
 
 export const getPosts = async () => {
   try {
@@ -32,6 +38,15 @@ export const updateCurrentPost = async (id, data) => {
 export const deleteCurrentPost = (id) => {
   try {
     deletePost(id);
+  } catch (err) {
+    console.log(err.message);
+  }
+};
+
+export const likeCurrentPost = async (id) => {
+  try {
+    let res = await likePost(id);
+    return res.data
   } catch (err) {
     console.log(err.message);
   }

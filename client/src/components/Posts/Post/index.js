@@ -17,7 +17,7 @@ import {
 import { Card } from './styles';
 import { useDispatch } from 'react-redux';
 import { ActionType } from '../../../redux/post/action_types';
-import { deleteCurrentPost } from '../../../actions/actionPost';
+import { deleteCurrentPost, likeCurrentPost } from '../../../actions/actionPost';
 
 export const Post = ({ post }) => {
   const dispatch = useDispatch();
@@ -32,6 +32,14 @@ export const Post = ({ post }) => {
     deleteCurrentPost(id);
     dispatch({
       type: ActionType.DELETE_POST,
+      payload: id,
+    });
+  };
+
+  const likePost = (id) => {
+    likeCurrentPost(id);
+    dispatch({
+      type: ActionType.SET_LIKE,
       payload: id,
     });
   };
@@ -76,7 +84,7 @@ export const Post = ({ post }) => {
             : null}
           <Title>{post?.title}</Title>
           <Icons>
-            <div>
+            <div onClick={()=>likePost(post?._id)}>
               <SVG xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'>
                 <title>like-1</title>
                 <path
@@ -86,7 +94,7 @@ export const Post = ({ post }) => {
                 <rect className='a' x='0.5' y='10.159' width='5' height='12' />
                 <path d='M3.25,19.159a.75.75,0,1,0,.75.75.75.75,0,0,0-.75-.75Z' />
               </SVG>
-              {post?.likeCount}
+              &nbsp; LIKE &nbsp; {post?.likeCount}
             </div>
             <div onClick={()=>deletePost(post?._id)}>
               <SVG xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 58.67'>
@@ -108,7 +116,7 @@ export const Post = ({ post }) => {
                   </g>
                 </g>
               </SVG>
-              Delete
+              &nbsp; Delete
             </div>
           </Icons>
         </Card>

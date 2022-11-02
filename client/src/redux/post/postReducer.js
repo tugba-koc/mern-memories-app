@@ -7,7 +7,6 @@ export const postInitialState = {
 };
 
 const postReducer = (state = postInitialState, action) => {
-  console.log(action.payload);
   switch (action.type) {
     case ActionType.SET_POST:
       return {
@@ -18,6 +17,15 @@ const postReducer = (state = postInitialState, action) => {
       return {
         ...state,
         posts: state.posts.filter((el) => el._id !== action.payload),
+      };
+    case ActionType.SET_LIKE:
+      return {
+        ...state,
+        posts: state.posts.map((el) =>
+          el._id === action.payload
+            ? { ...el, likeCount: el.likeCount + 1 }
+            : el
+        ),
       };
     case ActionType.SET_CURRENT_POST_ID:
       return {

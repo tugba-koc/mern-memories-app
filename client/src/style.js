@@ -3,9 +3,9 @@ import styled from 'styled-components';
 export const MainContainer = styled.div`
   background-color: #faf7c3;
   min-height: 100vh;
-  padding : 0;
+  padding: 0;
   margin: 0;
-`
+`;
 
 export const Header = styled.div`
   font-size: 32px;
@@ -25,4 +25,9 @@ export const ImageContainer = styled.img`
 export const Container = styled.div`
   display: grid;
   grid-template-columns: 60vw 40vw;
+  @media only screen and (max-width: 768px) {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
 `;
